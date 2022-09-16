@@ -1,0 +1,35 @@
+@media screen and (max-width: 835px) {
+    header{
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 71px;
+    }
+    .header__logo{
+        margin: 0 auto;
+    }
+    .img__wrapper ul li {
+        width: calc((100% - 8px)/2);
+        margin-right: 0px;
+    }
+    .img__wrapper ul li:nth-child(odd){
+        margin-right: 8px;
+    }
+    #hamburger{
+        width: 65%;
+    }
+    #search__history{
+        top: 124px;
+        left: -3px;
+        color: #01BFBD;
+        width: 100%;
+        padding: 12px 0 12px 20px;
+    }
+    #search__history li{
+        color: #01BFBD;
+        border: 1px solid #01BFBD;
+        border-radius: 10px;
+        padding: 4px;
+        margin-right: 4px;
+        background-color: black;
+    }
+}

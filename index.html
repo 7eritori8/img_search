@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS課題　画像検索</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style_sp.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.css" integrity="sha512-Woz+DqWYJ51bpVk5Fv0yES/edIMXjj3Ynda+KWTIkGoynAMHrqTcDUQltbipuiaD5ymEo9520lyoVOo9jCQOCA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <header>
+        <div class="header__logo fc-aqua flex-align-center">
+            <h3>Ritori</h3>
+        </div>
+        <div class="header__right-area flex-align-center">
+            <div class="right-area__search mr-2">
+                <form action="." class="flex" autocomplete="off" onsubmit="return false;">
+                    <input type="text" name="" id="textform" placeholder="cat dog ...">
+                    <ul id="search__history">
+                    </ul>
+                    <button id="submitBtn" type="button">
+                        <img src="assets/icon/tab_search copy.svg" alt="">
+                    </button>
+                </form>
+            </div>
+            <div class="right-area__random-btn mr-2">
+                <button id="randomBtn" class="flex-align-center">
+                    <img src="assets/icon/ei-random.svg" alt="">
+                </button>
+            </div>
+            <div class="right-area__hamburger">
+                <button class="bc-black" id="hamburger__open">
+                    <img src="/assets/icon/hamburger.svg" alt="openmenu">
+                </button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="img__wrapper">
+            <ul id="img__list"></ul>
+        </div>
+    </main>
+    <div id="hamburger">
+        <div class="haburger__content">
+            <h3 class="bc-black fc-white">Link<span id="hamburger__close"><img src="/assets/icon/close.png" alt="closemenu"></span></h3>
+            <ul class="bc-lightblack">
+                <li>
+                    <a href="https://unsplash.com/" class="fc-aqua">Unsplahs</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="main.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js" integrity="sha512-k2GFCTbp9rQU412BStrcD/rlwv1PYec9SNrkbQlo6RZCf75l6KcC3UwDY8H5n5hl4v77IDtIPwOk9Dqjs/mMBQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>
