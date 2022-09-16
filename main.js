@@ -1,110 +1,92 @@
 'use strict';
-// Unsplash Source API 
 
 // 現在表示されている画像リストのDOMを削除
-const imgListRemove = ()=>{
-    let nodeList = document.getElementById('img__list').querySelectorAll('li')
-    for (let i = 0, len = nodeList.length; i < len ; i++){
-        nodeList[i].remove();
-    }
+const RemoveAllImageList = ()=>{
+    document.getElementById('img__list').querySelectorAll('li').forEach((nodeList)=>{
+        nodeList.remove();
+    })
 }
-// 画像リストのDOMを作成
-const imgListCreate = (srcURL)=>{
+
+// 画像リストの最後尾にsrcURLのimageタグを追加
+const addImageElements = (srcURL)=>{
     // ul要素を取得
-    let ulElement = document.getElementById('img__list');
+    const ulElement = document.getElementById('img__list');
     
     // 挿入したいDOM要素を生成
     // list要素を作成、設置
-    let newList = document.createElement('li');
+    const newList = document.createElement('li');
     ulElement.appendChild(newList);
 
     // li要素内にaタグ生成
-    let listanchor = document.createElement('a');
-    listanchor.setAttribute('href',srcURL);
-    listanchor.setAttribute('data-lightbox',"group");
+    const listAnchor = document.createElement('a');
+    listAnchor.setAttribute('href',srcURL);
+    listAnchor.setAttribute('data-lightbox',"group");
 
-    // ul内の一番最後のlist要素を取得
-    let lastList = ulElement.lastElementChild;
-    lastList.appendChild(listanchor);
+    // ul内の一番最後のlist要素を取得、生成したaタグを設置
+    const lastList = ulElement.lastElementChild;
+    lastList.appendChild(listAnchor);
 
-    // img要素を作成、最後のliタグ内に設置
-    let newListImg = document.createElement('img');
-
-    // 作成したimgタグにsrc属性を指定
+    // img要素を作成、src属性を指定
+    const newListImg = document.createElement('img');
     newListImg.setAttribute('src',srcURL);
-    listanchor.appendChild(newListImg);
+
+    // 一番最後のlist要素内に設置したaタグ内にimg要素を設置
+    listAnchor.appendChild(newListImg);
 }   
 
+// 5000以下のランダムな整数を生成
+const generateRandomNum = ()=>{
+    return Math.floor( Math.random() * (5000));
+}
 // 50枚画像をランダムに表示
 const randomImage = ()=>{
-    let i = "";
     for(let i =0; i< 50 ; i++){
-        // 5000以下のランダムな整数を生成
-        let random_num = Math.floor( Math.random() * (5000));
-        // 画像のsrcURLを生成
-        let srcURL = "https://source.unsplash.com/random/" + random_num;
-        
-        //画像リストDOMを作成 
-        imgListCreate(srcURL)
+        //ランダムな画像のURLを渡して画像リストDOMを作成 
+        addImageElements(`https://source.unsplash.com/random/${generateRandomNum()}`);
     }
 }
 
-randomImage();
-// ランダムボタンをクリックすると画像を入れ替えて表示する
-let randomButton = document.getElementById('randomBtn');
-randomButton.addEventListener("click",()=>{
-    imgListRemove()
-     randomImage();
- })
-
-// inputの中身を取得
-const getinputValue = ()=>{
-    let inputForm = document.getElementById('textform');
-    let inputValue = inputForm.value
-    return inputValue
+// 検索機能でinputの中身を取得
+const getSearchBoxInputValue = ()=>{
+    const inputForm = document.getElementById('textform');
+    let inputValue = inputForm.value;
+    return inputValue;
 }
 
-// 虫眼鏡マークを押すと現在の画像リストを削除、inputの中身からsrcURLを生成
-let submitBtn = document.getElementById('submitBtn');
-submitBtn.addEventListener("click",()=>{
-
-    imgListRemove()
-    searchImage(getinputValue());
-})
 
 // リロードするまでに何回目の検索か
 let searchNum = 0
 // リロードされるまでの画像のURL保存用オブジェクトを宣言
-let imgsrcs ={};
+const imgsrcs ={};
 
+// n番目の検索結果を保存する配列をオブジェクトに追加
+const addArrayToObjectForSearchResultURL = (searchNum)=>{
+    imgsrcs[searchNum] = [];
+}
+// n番目の検索結果を保存する配列に追加
+const addSearchResultURLToArray = (searchNum,srcURL)=>{
+    imgsrcs[searchNum].push(srcURL);
+}
 const searchImage =(value)=>{
-    if(value != ""){
-        // 履歴リストに追加
-        addHistory(value,searchNum);
-
-        imgsrcs[searchNum] = {
-            "index":searchNum,
-            "value":value,
-            "src":[]
-        }
-        for(let i =0; i< 50 ; i++){
-                // 5000以下のランダムな整数を生成
-                let random_num = Math.floor( Math.random() * (5000));
-                
-                // URLにvalueを追加して検索する
-                let srcURL = "https://source.unsplash.com/featured/?" + value + "/" + random_num;
-                imgListCreate(srcURL);
-                
-                
-            // srcuRLを配列に保存
-            imgsrcs[searchNum].src.push(srcURL);
-        }
-        console.log(imgsrcs)
-    }else{
+    if(value === ""){
         // 空だった場合はランダムな画像を表示
-        randomImage()
+        randomImage();
+        return;
     }
-    searchNum = searchNum + 1;
+    if(value !== ""){
+        // 履歴リストに検索ワードを追加
+        addHistory(value,searchNum);
+        addArrayToObjectForSearchResultURL(searchNum);
+
+        for(let i =0; i< 50 ; i++){
+            let srcURL = `https://source.unsplash.com/featured/?${value}/${generateRandomNum()}`
+            // URLにvalueを追加して検索、imgDOMを追加
+            addImageElements(srcURL);
+            // 作成したURLを配列に保存
+            addSearchResultURLToArray(searchNum,srcURL)
+        }
+        searchNum = searchNum + 1;
+    }
 }
 
 if (window.matchMedia('(max-width: 767px)').matches) {
@@ -112,69 +94,76 @@ if (window.matchMedia('(max-width: 767px)').matches) {
         document.getElementById('search__history').style.display = "flex";
 
 } else if (window.matchMedia('(min-width:768px)').matches) {
-        //PC処理
-         // 履歴を表示する
-        const showHistory = ()=>{
-            document.getElementById('search__history').style.display = "block";
-        }
-        // 履歴を非表示にする 
-        const hideHistory = ()=>{
-            document.getElementById('search__history').style.display = "none";
-        }
-
+        //PC処理        
         // フォームにフォーカスすると履歴表示
         const textform = document.getElementById('textform');
         textform.addEventListener('focus',()=>{
-            showHistory();
+            document.getElementById('search__history').style.display = "block";
         })
         // フォームからフォーカスが外れると履歴を非表示
+        // 履歴をクリックする前に消えると困るので、300ミリ秒後に非表示
         textform.addEventListener('blur',()=>{
-            hideHistory();
+            setTimeout(
+                ()=>{
+                    document.getElementById('search__history').style.display = "none"
+                },
+                300);
         })
 }
 
 // 履歴に追加する
 const addHistory = (value,searchNum)=>{
     // historyのDOMを取得
-    let search__history = document.getElementById('search__history');
+    const search__history = document.getElementById('search__history');
 
     // list要素を作成、設置
-    let newHistorylist = document.createElement('li');
+    const newHistorylist = document.createElement('li');
     newHistorylist.textContent = value;
     search__history.appendChild(newHistorylist);
+
+    // 履歴のリストをクリックすると検索時の画像を再現する処理を追加
     newHistorylist.addEventListener("click",()=>{
-        historySearch(searchNum);
+        reproductionSearchFromHistory(searchNum);
     })
 }
 
-// 履歴から検索する
-const historySearch = (searchNum)=>{
-    imgListRemove();
+// 履歴のURLを再表示する
+const reproductionSearchFromHistory = (searchNum)=>{
+    RemoveAllImageList();
+
     for(let i =0; i< 50 ; i++){
-        let srcURL = imgsrcs[searchNum].src[i]
-        imgListCreate(srcURL);
+        let srcURL = imgsrcs[searchNum][i]
+        addImageElements(srcURL);
     } 
 }
 
 
 
+const init = ()=>{
+    // 初期表示
+    randomImage();
 
-// ハンバーガーメニュー
+    // ランダムボタンをクリックすると画像を入れ替えて表示する
+    document.getElementById('randomBtn').addEventListener("click",()=>{
+        RemoveAllImageList()
+        randomImage();
+    })
+    // 検索機能
+    document.getElementById('submitBtn').addEventListener("click",()=>{
+        RemoveAllImageList()
+        searchImage(getSearchBoxInputValue());
+    })
 
-// 非表示
-const menuClose = ()=>{
-    document.getElementById('hamburger').style.display = "none";
+    // ハンバーガーメニュー
+    // メニューを非表示
+    document.getElementById('hamburger__close').addEventListener('click',()=>{
+        document.getElementById('hamburger').style.display = "none";
+    })
+    // メニューを表示
+    document.getElementById('hamburger__open').addEventListener('click',()=>{
+        document.getElementById('hamburger').style.display = "block";
+    })
+
 }
+init();
 
-// 表示
-const menuOpen = ()=>{
-    document.getElementById('hamburger').style.display = "block";
-}
-
-// 
-document.getElementById('hamburger__close').addEventListener('click',()=>{
-    menuClose();
-})
-document.getElementById('hamburger__open').addEventListener('click',()=>{
-    menuOpen();
-})
