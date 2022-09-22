@@ -1,7 +1,7 @@
 'use strict';
 
 // 現在表示されている画像リストのDOMを削除
-const RemoveAllImageList = ()=>{
+const removeAllImageList = ()=>{
     document.getElementById('img__list').querySelectorAll('li').forEach((nodeList)=>{
         nodeList.remove();
     })
@@ -47,8 +47,8 @@ const randomImage = ()=>{
 }
 
 // 検索機能でinputの中身を取得
-const getSearchBoxInputValue = ()=>{
-    const inputForm = document.getElementById('textform');
+const getSearchBoxText = ()=>{
+    const inputForm = document.getElementById('textForm');
     let inputValue = inputForm.value;
     return inputValue;
 }
@@ -57,58 +57,57 @@ const getSearchBoxInputValue = ()=>{
 // リロードするまでに何回目の検索か
 let searchNum = 0
 // リロードされるまでの画像のURL保存用オブジェクトを宣言
-const imgsrcs ={};
+const imgURLs ={};
 
 // n番目の検索結果を保存する配列をオブジェクトに追加
 const addArrayToObjectForSearchResultURL = (searchNum)=>{
-    imgsrcs[searchNum] = [];
+    imgURLs[searchNum] = [];
 }
 // n番目の検索結果を保存する配列に追加
 const addSearchResultURLToArray = (searchNum,srcURL)=>{
-    imgsrcs[searchNum].push(srcURL);
+    imgURLs[searchNum].push(srcURL);
 }
 const searchImage =(value)=>{
     if(value === ""){
         // 空だった場合はランダムな画像を表示
         randomImage();
         return;
-    }
-    if(value !== ""){
-        // 履歴リストに検索ワードを追加
-        addHistory(value,searchNum);
-        addArrayToObjectForSearchResultURL(searchNum);
+    }    
+    // 履歴リストに検索ワードを追加
+    addHistory(value,searchNum);
+    addArrayToObjectForSearchResultURL(searchNum);
 
-        for(let i =0; i< 50 ; i++){
-            let srcURL = `https://source.unsplash.com/featured/?${value}/${generateRandomNum()}`
-            // URLにvalueを追加して検索、imgDOMを追加
-            addImageElements(srcURL);
-            // 作成したURLを配列に保存
-            addSearchResultURLToArray(searchNum,srcURL)
-        }
-        searchNum = searchNum + 1;
+    for(let i =0; i< 50 ; i++){
+        let srcURL = `https://source.unsplash.com/featured/?${value}/${generateRandomNum()}`
+        // URLにvalueを追加して検索、imgDOMを追加
+        addImageElements(srcURL);
+        // 作成したURLを配列に保存
+        addSearchResultURLToArray(searchNum,srcURL)
     }
+    searchNum = searchNum + 1;
+    
 }
 
 if (window.matchMedia('(max-width: 767px)').matches) {
     //スマホ処理
-        document.getElementById('search__history').style.display = "flex";
+    document.getElementById('search__history').style.display = "flex";
 
 } else if (window.matchMedia('(min-width:768px)').matches) {
-        //PC処理        
-        // フォームにフォーカスすると履歴表示
-        const textform = document.getElementById('textform');
-        textform.addEventListener('focus',()=>{
-            document.getElementById('search__history').style.display = "block";
-        })
-        // フォームからフォーカスが外れると履歴を非表示
-        // 履歴をクリックする前に消えると困るので、300ミリ秒後に非表示
-        textform.addEventListener('blur',()=>{
-            setTimeout(
-                ()=>{
-                    document.getElementById('search__history').style.display = "none"
-                },
-                300);
-        })
+    //PC処理        
+    // フォームにフォーカスすると履歴表示
+    const textForm = document.getElementById('textForm');
+    textForm.addEventListener('focus',()=>{
+        document.getElementById('search__history').style.display = "block";
+    })
+    // フォームからフォーカスが外れると履歴を非表示
+    // 履歴をクリックする前に消えると困るので、300ミリ秒後に非表示
+    textForm.addEventListener('blur',()=>{
+        setTimeout(
+            ()=>{
+                document.getElementById('search__history').style.display = "none"
+            },
+            300);
+    })
 }
 
 // 履歴に追加する
@@ -117,22 +116,22 @@ const addHistory = (value,searchNum)=>{
     const search__history = document.getElementById('search__history');
 
     // list要素を作成、設置
-    const newHistorylist = document.createElement('li');
-    newHistorylist.textContent = value;
-    search__history.appendChild(newHistorylist);
+    const newHistoryList = document.createElement('li');
+    newHistoryList.textContent = value;
+    search__history.appendChild(newHistoryList);
 
     // 履歴のリストをクリックすると検索時の画像を再現する処理を追加
-    newHistorylist.addEventListener("click",()=>{
+    newHistoryList.addEventListener("click",()=>{
         reproductionSearchFromHistory(searchNum);
     })
 }
 
 // 履歴のURLを再表示する
 const reproductionSearchFromHistory = (searchNum)=>{
-    RemoveAllImageList();
+    removeAllImageList();
 
     for(let i =0; i< 50 ; i++){
-        let srcURL = imgsrcs[searchNum][i]
+        let srcURL = imgURLs[searchNum][i]
         addImageElements(srcURL);
     } 
 }
@@ -145,13 +144,13 @@ const init = ()=>{
 
     // ランダムボタンをクリックすると画像を入れ替えて表示する
     document.getElementById('randomBtn').addEventListener("click",()=>{
-        RemoveAllImageList()
+        removeAllImageList()
         randomImage();
     })
     // 検索機能
     document.getElementById('submitBtn').addEventListener("click",()=>{
-        RemoveAllImageList()
-        searchImage(getSearchBoxInputValue());
+        removeAllImageList()
+        searchImage(getSearchBoxText());
     })
 
     // ハンバーガーメニュー
