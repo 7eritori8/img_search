@@ -16,8 +16,8 @@
         </div>
         <div class="header__right-area flex-align-center">
             <div class="right-area__search mr-2">
-                <form action="." class="flex" autocomplete="off" onsubmit="return false;">
-                    <input type="text" name="" id="textform" placeholder="cat dog ...">
+                <form action="." id="form" class="flex" autocomplete="off" onsubmit="removeAllImageList();searchImage(getSearchBoxText());return false;">
+                    <input type="text" name="" id="textForm" placeholder="cat dog ...">
                     <ul id="search__history">
                     </ul>
                     <button id="submitBtn" type="button">
