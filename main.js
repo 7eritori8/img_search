@@ -91,8 +91,8 @@ const searchImage =(value)=>{
 if (window.matchMedia('(max-width: 767px)').matches) {
     //スマホ処理
     document.getElementById('search__history').style.display = "flex";
-
-} else if (window.matchMedia('(min-width:768px)').matches) {
+}
+if(window.matchMedia('(min-width:768px)').matches) {
     //PC処理        
     // フォームにフォーカスすると履歴表示
     const textForm = document.getElementById('textForm');
