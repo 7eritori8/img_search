@@ -3,192 +3,229 @@
 共通スタイル
 ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ 
 */
-/* スタイル打消し */
-*{
-    margin: 0;
-    padding: 0;
-}
-li{
-    list-style: none;
-}
-body{
-    font-family:Inter;
-}
-/* 背景色 */
-.bc-black{
-    background-color: #000000;
-}
-.bc-aqua{
-    background-color: #01BFBD;
-}
-.bc-lightblack{
-    background-color: #353739;
-}
-/* 文字色 */
-.fc-aqua{
-    color: #01BFBD;
-}
-.fc-white{
-    color: #FFFFFF;
-}
-/* flex系 */
-/* 縦に中央ぞろえ */
-.flex{
-    display: flex;
-}
-.flex-align-center{
-    display: flex;
-    align-items: center;
-}
-/* margin */
-/* margin-right */
-.mr-2{
-    margin-right: 16px;
-}
-/* margin-bottom */
-.mb-14{
-    margin-bottom: 56px;
-}
+ /* スタイル打消し */
+ * {
+     margin: 0;
+     padding: 0;
+ }
+
+ li {
+     list-style: none;
+ }
+
+ body {
+     font-family: Inter;
+ }
+
+ /* 背景色 */
+ .bc-black {
+     background-color: #000000;
+ }
+
+ .bc-aqua {
+     background-color: #01BFBD;
+ }
+
+ .bc-lightblack {
+     background-color: #353739;
+ }
+
+ /* 文字色 */
+ .fc-aqua {
+     color: #01BFBD;
+ }
+
+ .fc-white {
+     color: #FFFFFF;
+ }
+
+ /* flex系 */
+ /* 縦に中央ぞろえ */
+ .flex {
+     display: flex;
+ }
+
+ .flex-align-center {
+     display: flex;
+     align-items: center;
+ }
+
+ /* margin */
+ /* margin-right */
+ .mr-2 {
+     margin-right: 16px;
+ }
+
+ /* margin-bottom */
+ .mb-14 {
+     margin-bottom: 56px;
+ }
+
  /*
 ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 ヘッダー
 ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ 
 */
-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #000000;
-    margin-bottom: 56px;
-}
-.header__logo{
-    font-size: 28px;
-    font-weight: 600;
-}
-.right-area__search form{
-    height: 36px;
-}
-.right-area__search input[type="text"]{
-    border: 2px solid #C6C6C6;
-    background-color: #353739;
-    border-radius: 10px 0 0 10px;
-    color: white;
-    padding-left: 12px;
-}
-.right-area__search button  {
-    background-color: #01BFBD;
-    border: 2px solid #01BFBD;
-    border-radius: 0px 10px 10px 0px;
-    height: 100%;
-    width: 36px;
-    padding: 2px;
-    cursor: pointer;
-}
-.right-area__search button img{
-    height: 24px;
-}
-.right-area__random-btn button{
-    border-radius: 10px;
-    padding: 0 16px;
-    height: 36px;
-    border: 2px solid #01BFBD;
-    cursor: pointer;
-}
-.right-area__random-btn button img{
-    width: 28px;
-}
-.right-area__hamburger button{
-    cursor: pointer;
-    border: 1px solid black;
-}
-.right-area__hamburger button img{
-    height: 24px;
-}
+ header {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     padding: 20px;
+     background-color: #000000;
+     margin-bottom: 56px;
+ }
+
+ .header__logo {
+     font-size: 28px;
+     font-weight: 600;
+     font-family: 'Luckiest Guy', cursive;
+     letter-spacing: 1px;
+ }
+
+ .right-area__search form {
+     height: 36px;
+ }
+
+ .right-area__search input[type="text"] {
+     border: 2px solid #C6C6C6;
+     background-color: #353739;
+     border-radius: 10px 0 0 10px;
+     color: white;
+     padding-left: 12px;
+ }
+
+ .right-area__search button {
+     background-color: #01BFBD;
+     border: 2px solid #01BFBD;
+     border-radius: 0px 10px 10px 0px;
+     height: 100%;
+     width: 36px;
+     padding: 2px;
+     cursor: pointer;
+ }
+
+ .right-area__search button img {
+     height: 24px;
+ }
+
+ .right-area__random-btn button {
+     border-radius: 10px;
+     padding: 0 16px;
+     height: 36px;
+     border: 2px solid #01BFBD;
+     cursor: pointer;
+ }
+
+ .right-area__random-btn button img {
+     width: 28px;
+ }
+
+ .right-area__hamburger button {
+     cursor: pointer;
+     border: 1px solid black;
+ }
+
+ .right-area__hamburger button img {
+     height: 24px;
+ }
+
  /*
 ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 main
 ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ 
 */
-.img__wrapper{
-    height: 100%;
-    padding: 0 20px;
-}
-.img__wrapper ul{
-    display: flex;
-    flex-wrap: wrap;
-}
-.img__wrapper ul li{
-    width: calc((100% - 80px)/5);
-    margin-right:20px;
-}
-.img__wrapper ul li:nth-child(5n){
-    margin-right: 0;
-}
-.img__wrapper ul li img{
-    width: 100%;
-    aspect-ratio: 1/1;
-    object-fit: cover;
-    cursor: pointer;
-}
-.img__wrapper ul li img:hover{
-    opacity: 0.8;
-    transition: opacity 0.1s 
-}
+ .img__wrapper {
+     height: 100%;
+     padding: 0 20px;
+ }
 
-#search__history{
-    display: none;
-    position: absolute;
-    top: 60px;
-    width: 210px;
-    background-color: #1E2022;
-    color: white;
-    z-index: 2;
-}
-#search__history li{
-    list-style: none;
-    padding: 16px 0 16px 16px;
-}
-#search__history li:hover{
-    background-color: #34373A;
-}
+ .img__wrapper ul {
+     display: flex;
+     flex-wrap: wrap;
+ }
+
+ .img__wrapper ul li {
+     width: calc((100% - 80px)/5);
+     margin-right: 20px;
+ }
+
+ .img__wrapper ul li:nth-child(5n) {
+     margin-right: 0;
+ }
+
+ .img__wrapper ul li img {
+     width: 100%;
+     aspect-ratio: 1/1;
+     object-fit: cover;
+     cursor: pointer;
+ }
+
+ .img__wrapper ul li img:hover {
+     opacity: 0.8;
+     transition: opacity 0.1s
+ }
+
+ #search__history {
+     display: none;
+     position: absolute;
+     top: 60px;
+     width: 210px;
+     background-color: #1E2022;
+     color: white;
+     z-index: 2;
+ }
+
+ #search__history li {
+     list-style: none;
+     padding: 16px 0 16px 16px;
+ }
+
+ #search__history li:hover {
+     background-color: #34373A;
+ }
+
  /*
 ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
 ハンバーガーメニュー
 ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ 
 */
-#hamburger{
-    display: none;
-    width: 30%;
-    position: fixed;
-    right: 0;
-    top: 0;
-    z-index: 3;
-    height: 100vh;
-}
-#hamburger h3{
-    height: 60px;
-    padding-left: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-#hamburger h3 span img{
-    margin-right: 20px;
-    cursor: pointer;
-}
-#hamburger div,
-#hamburger ul{
-    height: 100%;
-    padding-left: 20px;
-}
-#hamburger li{
-    display: flex;
-    align-items: center;
-    border-bottom: 1px white solid;
-    padding-bottom: 10px;
-    padding-top: 20px;
-}
-#hamburger a{
-    text-decoration: none;
-}
+ #hamburger {
+     display: none;
+     width: 30%;
+     position: fixed;
+     right: 0;
+     top: 0;
+     z-index: 3;
+     height: 100vh;
+ }
+
+ #hamburger h3 {
+     height: 60px;
+     padding-left: 20px;
+     display: flex;
+     align-items: center;
+     justify-content: space-between;
+ }
+
+ #hamburger h3 span img {
+     margin-right: 20px;
+     cursor: pointer;
+ }
+
+ #hamburger div,
+ #hamburger ul {
+     height: 100%;
+     padding-left: 20px;
+ }
+
+ #hamburger li {
+     display: flex;
+     align-items: center;
+     border-bottom: 1px white solid;
+     padding-bottom: 10px;
+     padding-top: 20px;
+ }
+
+ #hamburger a {
+     text-decoration: none;
+ }
